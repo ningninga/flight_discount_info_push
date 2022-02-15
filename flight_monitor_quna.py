@@ -9,41 +9,39 @@ import logging
 import re
 
 import requests
-from pyquery import PyQuery as pq
-
 
 
 def robot_message(value):
     """
     This function aim at sending daily flight information by your own Dingding robot.
     Do not forget to add your own robot into a group first!
-    Please input your own Dingding phone number into PHONE and Webhook into ROBOT_URL below,
+    Please input your own Dingding phone number into phone and Webhook into robot_url below,
 
     In the settings of this robot, please input 'flight' in 'custom keywords' part so that you can receive the message.
     :param value: The message that you want to send.
     :return:
     """
     logging.info(value)
-    #
-    PHONE = '*****'
-    data = {
+    phone = '*****'
+    message_data = {
         "msgtype": "text",
         "text": {
-            "content": "Flight Notification：{}, @{}".format(value, PHONE)
+            "content": "Flight Notification：{}, @{}".format(value, phone)
         },
         "at": {
             "atMobiles": [
-                "{}".format(PHONE)
+                "{}".format(phone)
             ],
             "isAtAll": False
         }
     }
     try:
-        ROBOT_URL = '*******'
-        requests.post(url=ROBOT_URL, json=data)
+        robot_url = '*******'
+        requests.post(url=robot_url, json=message_data)
         logging.info("Dingding robot: {}".format(value))
     except Exception as e:
         logging.error("Failed to send meaage by robot: {}, content: {}".format(e, value))
+
 
 headers = {
     'accept': '*/*',
@@ -54,26 +52,26 @@ headers = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36'
 }
 
-
 if __name__ == '__main__':
+    # the real url may not be the same as the url shown on the browser address bar, use the request url.
     main_url = 'https://ws.qunar.com/lowerPrice.jcp?&callback=DomesticLowPriceHome.showLowPrice'
     flight_info = []
-    html = requests.get(main_url, headers=headers,  timeout=10)
+    html = requests.get(main_url, headers=headers, timeout=10)
     if html.status_code == 200:
         content = re.sub('^DomesticLowPriceHome\.showLowPrice\(|\)$', '', html.text)
         # print(content)
+        # use json.loads to transfer content from json to dictionary, in order to read data easily.
         data = json.loads(content)['data']
+        # print(data)
         log_str = 'Hi! I found the most affordable Hangzhou take-off ticket price here!!!!!\n'
         for city_name, info in data.items():
             if city_name != '杭州':
                 continue
             records = info['records']
             records.sort(key=lambda x: int(x['price']), reverse=False)
+            # This loop is used to output and splice data to log_str.
             for record in records:
-                log_str += '{},fly to {}，only need {}yuan\n'.format(record['date'],record['arrCity'],record['price'])
+                log_str += '{},fly to {}，only need {}yuan\n'.format(record['date'], record['arrCity'], record['price'])
             robot_message(log_str)
     else:
-        print('experied')
-
-
-
+        print('expired')
