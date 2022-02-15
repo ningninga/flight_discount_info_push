@@ -23,7 +23,7 @@ So, in order to solve this problem, I write a tiny program to send the affordabl
 
 See requirements.txt, it contains all of the required dependencies and their version numbers.
 ## Use
-If you want this program runs periodically, you can put the python file into your server and let it run on the server automatically.
+If you want this program to run periodically, you can put the python file into your server and let it run on the server automatically.
 - Upload python file into server.
 - Create a sh file under the same directory of python file, and write some shell scripts as below into sh file. Dont't forget to change your own path and name of file.
 ```
