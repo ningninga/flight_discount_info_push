@@ -48,7 +48,7 @@ For V1.0: https://ws.qunar.com/lowerPrice.jcp?&callback=DomesticLowPriceHome.sho
 ## Version
 ### V1.0 (2022.02.15)
 I choose Dingding is because it has open Webhook for free, you can change it into other app which has the similar function as you want.    
-I choose Quna web is because it is almost the only one OTA Website that its data can be crawled, frankly speaking, I also tried Xiecheng, Feizhu ant etc. Finally, I found Quna is the most friendly one to me.  
+I choose Quna web is because it is almost the only one OTA Website that its data can be crawled, frankly speaking, I also tried Xiecheng, Feizhu and etc. Finally, I found Quna is the most friendly one to me.  
 According to what I said before, this program is for Chinese airline. But I just want to say, maybe I will enlarge my program to overseas website in some day:)
 
 
