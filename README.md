@@ -28,7 +28,7 @@ If you want this program to run periodically, you can put the python file into y
 - Create a sh file under the same directory of python file, and write some shell scripts as below into sh file. Dont't forget to change your own path and name of file.
 ```
 #!/bin/bash
-cd /home/python_project/jianing/message_flight_push
+cd ******
 ps -ef | grep flight_monitor_qn.py |grep -v grep | awk '{print $2}'| xargs kill -9
 
 sleep 1s
